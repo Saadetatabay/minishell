@@ -1,3 +1,4 @@
+#include "minishell.h"
 int	main(int argc, char	*argv[], char *envp[])
 {
 	char	*input;
@@ -22,7 +23,7 @@ int	main(int argc, char	*argv[], char *envp[])
 		{
 			add_history(input);
 			//saadet
-			parse_input(input);
+			//parse_input(input);
 			//ayşe
 			//exec_command();
 		}

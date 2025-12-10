@@ -8,7 +8,7 @@ OBJ = $(SRC:.c=.o)
 all:$(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -O $(NAME) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 clean:
 	rm -f $(OBJ)
