@@ -26,6 +26,8 @@ t_token	*lexer(char	*input)
 
 int	handle_operator(t_token	**token_list, char *input, int i)
 {
+	int				ret;
+	t_token			*new_token;
 	t_token_type	type;
 	char			*content;
 
@@ -33,24 +35,40 @@ int	handle_operator(t_token	**token_list, char *input, int i)
 	{
 		content = ft_strdup("<<");
 		type = HEREDOC;
-		//TOKEN_LİSTESİNE CONTENTİ EKLEME FUNC GELECEK
-		return (2);
+		ret = 2;
 	}
-	if (input[i + 1] && input[i]== '>' && input[i + 1] == '>')
+	else if (input[i + 1] && input[i]== '>' && input[i + 1] == '>')
 	{
 		content = ft_strdup(">>");
 		type = APPEND;
-		//TOKEN_LİSTESİNE CONTENTİ EKLEME FUNC GELECEK
-		return (2);
+		ret = 2;
 	}
-	if (input[i] == '<')
-        type = REDIRECT_IN;
-    else if (input[i] == '>')
-        type = REDIRECT_OUT;
-    else
-        type = PIPE;
-	
-	content = ft_substr(input, i, 1);
-	//FUNC
-	return (1);
+	else
+	{
+		ret = 1;
+		if (input[i] == '<')
+			type = REDIRECT_IN;
+		else if (input[i] == '>')
+			type = REDIRECT_OUT;
+		else
+			type = PIPE;
+		content = ft_substr(input, i, 1);
+	}
+	new_token = newtoken(content, type);
+	token_add_list(token_list, new_token);
+	return (ret);
+}
+
+t_token	*ft_new_token(char *content, t_token_type type)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return NULL;
+	new->type = type;
+	new->value = content;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
 }
