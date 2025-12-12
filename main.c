@@ -28,6 +28,14 @@ int	main(int argc, char	*argv[], char *envp[])
 			add_history(input);
 			//saadet
 			token_list = lexer(input);
+			// 2. TEST: Parçaları ekrana bas (Görmek için)
+            printf("--- LEXER CIKTISI ---\n");
+            print_tokens(token_list);
+            printf("---------------------\n");
+
+            // 3. Executor gelene kadar listeyi burada free'lemeliyiz
+            // Yoksa her komutta RAM şişer.
+            free_token_list(&token_list);
 			//parse_input(input);
 			//ayşe
 			//exec_command();

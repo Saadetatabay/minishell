@@ -6,7 +6,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <libft/libft.h>
+# include "libft/libft.h"
 # include <ctype.h>
 
 //Token türlerini
@@ -30,5 +30,10 @@ typedef struct s_token
 
 t_token	*lexer(char	*input);
 int	handle_operator(t_token	**token_list, char *input, int i);
-
+int	handle_word(t_token **token_list, char *input, int i);
+t_token	*lexer(char	*input);
+t_token	*ft_new_token(char *content, t_token_type type);
+void	token_add_list(t_token **token_list, t_token *new_token);
+void    free_token_list(t_token **token);
+void    print_tokens(t_token *token);
 #endif
