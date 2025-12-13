@@ -26,3 +26,26 @@ void	env_add_back(t_env **env_list, t_env *new)
 		temp = temp->next;
 	temp->next = new;
 }
+
+void	init_env(t_env **env_list, char **envp)
+{
+	int		i;
+	t_env	*new;
+	char	*find;
+	char	*value;
+	char	*key;
+
+	i = 0;
+	while (envp[i])
+	{
+		find = ft_strchr(envp[i],'=');
+		if (find)
+		{
+			key = ft_substr(envp[i], 0, find - envp[i]);
+			value = ft_strdup(find + 1);
+			new = new_env_node(key, value);
+			env_add_back(env_list, new);
+		}
+		i++;
+	}
+}
