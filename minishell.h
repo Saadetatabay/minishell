@@ -18,7 +18,6 @@ typedef enum e_token_type
     REDIRECT_OUT, // >
     APPEND,     // >>
     HEREDOC     // <<
-} t_token_type;
 
 typedef struct s_token
 {
@@ -27,6 +26,13 @@ typedef struct s_token
 	struct s_token	*next; //sonraki token
     struct s_token  *prev;
 }	t_token;
+
+typedef struct s_env
+{
+	char			*key;   // Örn: "USER"
+	char			*value; // Örn: "satabay"
+	struct s_env	*next;
+}	t_env;
 
 t_token	*lexer(char	*input);
 int	handle_operator(t_token	**token_list, char *input, int i);
