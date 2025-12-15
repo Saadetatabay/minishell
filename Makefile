@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./libft
-SRC = main.c lexer.c utils_token.c env.c utils.c expander.c
+SRC = main.c lexer.c utils_token.c env.c utils.c expander.c parser_utils.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT_PATH = ./libft

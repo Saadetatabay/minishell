@@ -64,8 +64,8 @@ typedef struct s_cmd
 }   t_cmd;
 
 t_token	*lexer(char	*input);
-int	handle_operator(t_token	**token_list, char *input, int i);
-int	handle_word(t_token **token_list, char *input, int i);
+int	    handle_operator(t_token	**token_list, char *input, int i);
+int	    handle_word(t_token **token_list, char *input, int i);
 t_token	*lexer(char	*input);
 t_token	*ft_new_token(char *content, t_token_type type);
 void	token_add_list(t_token **token_list, t_token *new_token);
@@ -79,6 +79,11 @@ void	expander(t_token **token_list, t_env *env_list);
 char	*var_name(char *s);
 char	*replace_string(char *old_str, int start, int len_name, char *new);
 void	expand_token(t_token *token, t_env *env_list);
+t_cmd   *new_cmd_node(void);
+t_cmd   *new_cmd_node(void);
+char	**join_str_array(char *arr[], char *new_str);
+t_redir	*add_redirect(t_token *token, t_cmd *cmd);
+
 extern int  exit_status;
 
 #endif
