@@ -83,6 +83,8 @@ t_cmd   *new_cmd_node(void);
 t_cmd   *new_cmd_node(void);
 char	**join_str_array(char *arr[], char *new_str);
 t_redir	*add_redirect(t_token *token, t_cmd *cmd);
+t_cmd	*parse_token(t_token *token_list);
+void print_cmd_list(t_cmd *head);
 
 extern int  exit_status;
 

@@ -6,12 +6,13 @@ t_cmd	*parse_token(t_token *token_list)
     t_cmd   *head;
     t_cmd   *current;
     t_cmd   *new_cmd;
-    t_redir *redir_control;
 
+	if (!token_list)
+		return NULL;
     current_token = token_list;
     head = new_cmd_node();
     if (!head)
-        return ;
+		return NULL;
 	current = head;
     while (current_token)
     {

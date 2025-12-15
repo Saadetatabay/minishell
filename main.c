@@ -7,6 +7,7 @@ int	main(int argc, char	*argv[], char *envp[])
 	char	*input;
 	t_token	*token_list;
 	t_env	*env_list;
+	t_cmd	*cmd_list;
 	//unused uyarısı almamk için yaptım
 	(void)argc;
 	(void)argv;
@@ -47,15 +48,17 @@ int	main(int argc, char	*argv[], char *envp[])
             // 3. Executor gelene kadar listeyi burada free'lemeliyiz
             // Yoksa her komutta RAM şişer.
 			expander(&token_list,env_list);
+			cmd_list = parse_token(token_list);
+			print_cmd_list(cmd_list);
 			// 4. SONUÇLARI GÖRMEK İÇİN YAZDIR
-            printf("--- EXPANDER SONRASI ---\n");
-            t_token *temp = token_list;
-            while (temp)
-            {
-                printf("Token: [%s]\n", temp->value);
-                temp = temp->next;
-            }
-            printf("------------------------\n");
+            // printf("--- EXPANDER SONRASI ---\n");
+            // t_token *temp = token_list;
+            // while (temp)
+            // {
+            //     printf("Token: [%s]\n", temp->value);
+            //     temp = temp->next;
+            // }
+            // printf("------------------------\n");
 
             free_token_list(&token_list);
 			//parse_input(input);
