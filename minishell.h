@@ -35,6 +35,34 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+// Yönlendirme türleri (Input, Output, Append, Heredoc)
+typedef enum e_redir_type
+{
+    REDIR_IN,       // <
+    REDIR_OUT,      // >
+    REDIR_APPEND,   // >>
+    REDIR_HEREDOC   // <<
+}   t_redir_type;
+
+// Yönlendirme Listesi (Her komutun kendi dosya yönlendirmeleri olabilir)
+typedef struct s_redir
+{
+    t_redir_type    type;       // Türü ne? (<, >, >>)
+    char            *file;      // Dosya adı ne? (örn: "outfile.txt")
+    struct s_redir  *next;      // Başka yönlendirme var mı?
+}   t_redir;
+
+// ANA KOMUT YAPISI (Partnerinin Beklediği Şey)
+typedef struct s_cmd
+{
+    char            **args;     // Komut ve argümanları (execve için hazır dizi!)
+                                // Örn: args[0]="ls", args[1]="-la", args[2]=NULL
+    
+    t_redir         *redirections; // Giriş/Çıkış dosyaları listesi
+    
+    struct s_cmd    *next;      // Sırada başka komut var mı? (Pipe varsa dolu olur)
+}   t_cmd;
+
 t_token	*lexer(char	*input);
 int	handle_operator(t_token	**token_list, char *input, int i);
 int	handle_word(t_token **token_list, char *input, int i);
