@@ -36,5 +36,6 @@ char    *remove_quotes(char *str)
         }
         i++;
     }
+    new[j] = '\0';
     return (new);
 }

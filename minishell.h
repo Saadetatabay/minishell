@@ -46,7 +46,7 @@ void    print_tokens(t_token *token);
 void	init_env(t_env **env_list, char **envp);
 void    print_env(t_env *env);
 char	*get_env_value(char *name, t_env *env_list);
-
+char    *remove_quotes(char *str);
 
 extern int  exit_status;
 

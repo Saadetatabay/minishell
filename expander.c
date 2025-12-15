@@ -3,12 +3,17 @@
 void	expander(t_token **token_list, t_env *env_list)
 {
 	t_token	*token;
+	char	*cleaned_str;
 	token = *token_list;
 	while (token)
 	{
-		if (token->type == WORD && ft_strchr(token->value,'$'))
+		if (token->type == WORD)
 		{
-			expand_token(token, env_list);
+			if (ft_strchr(token->value,'$'))
+				expand_token(token, env_list);
+			cleaned_str = remove_quotes(token->value);
+			free(token->value);
+			token->value = cleaned_str;
 		}
 		token = token->next;
 	}
