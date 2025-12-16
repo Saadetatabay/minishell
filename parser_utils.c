@@ -47,7 +47,7 @@ t_redir	*add_redirect(t_token *token, t_cmd *cmd)
 	t_redir	*redir_new;
 	t_redir	*temp;
 
-	if (!token->next || token->next->value != WORD)
+	if (!token->next || token->next->type != WORD)
 		return NULL; //BURADA HATA GELECEK SONRA
 	redir_new = malloc(sizeof(t_redir));
 	if (!redir_new)
@@ -62,7 +62,7 @@ t_redir	*add_redirect(t_token *token, t_cmd *cmd)
 		redir_new->type = REDIR_APPEND;
 	else if (token->type == HEREDOC)
 		redir_new->type = REDIR_HEREDOC;
-	if (!cmd)
+	if (!cmd->redirections)
 		cmd->redirections = redir_new;
 	else
 	{
