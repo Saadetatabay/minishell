@@ -47,8 +47,16 @@ t_redir	*add_redirect(t_token *token, t_cmd *cmd)
 	t_redir	*redir_new;
 	t_redir	*temp;
 
-	if (!token->next || token->next->type != WORD)
-		return NULL; //BURADA HATA GELECEK SONRA
+	if (!token->next)
+	{
+		printf("Minishell: syntax error near unexpected token 'newline'\n");
+        return (NULL);
+	}
+	if(token->next->type != WORD)
+	{
+		printf("Minishell: syntax error near unexpected token '%s'\n", token->next->value);
+        return (NULL);
+	}
 	redir_new = malloc(sizeof(t_redir));
 	if (!redir_new)
 		return NULL; // MALLOC HATASI
