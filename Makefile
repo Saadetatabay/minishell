@@ -18,6 +18,8 @@ SRC = main.c \
 	  builtin/cd.c \
 	  builtin/echo.c \
 	  redirections/redir.c \
+	  free/free_token_list.c \
+	  free/free_cmd_list.c \
 	  utils.c
 OBJ = $(SRC:.c=.o)
 

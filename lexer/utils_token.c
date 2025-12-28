@@ -11,21 +11,21 @@ void    print_tokens(t_token *token)
     }
 }
 
-// TEMİZLİK İÇİN: Token listesini free'ler (Leak olmaması için şart)
-void    free_token_list(t_token **token)
-{
-    t_token *curr;
-    t_token *next;
+// // TEMİZLİK İÇİN: Token listesini free'ler (Leak olmaması için şart)
+// void    free_token_list(t_token **token)
+// {
+//     t_token *curr;
+//     t_token *next;
 
-    if (!token || !*token)
-        return;
-    curr = *token;
-    while (curr)
-    {
-        next = curr->next;
-        free(curr->value); // İçindeki stringi (content) free'le
-        free(curr);        // Vagonun kendisini free'le
-        curr = next;
-    }
-    *token = NULL;
-}
+//     if (!token || !*token)
+//         return;
+//     curr = *token;
+//     while (curr)
+//     {
+//         next = curr->next;
+//         free(curr->value); // İçindeki stringi (content) free'le
+//         free(curr);        // Vagonun kendisini free'le
+//         curr = next;
+//     }
+//     *token = NULL;
+// }

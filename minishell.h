@@ -116,6 +116,10 @@ int     handle_redirections(t_cmd *cmd);
 int     heredoc_utils(t_redir *tmp);
 void    fill_heredoc(char *stop, int *fd);
 
+//free
+void    free_cmd_list(t_cmd **cmd);
+void    free_token_list(t_token **token);
+
 extern int  exit_status;
 
 #endif

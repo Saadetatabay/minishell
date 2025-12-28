@@ -49,6 +49,7 @@ int	main(int argc, char	*argv[], char *envp[])
             // Yoksa her komutta RAM şişer.
 			expander(&token_list,env_list);
 			cmd_list = parse_token(token_list);
+			free_token_list(&token_list);
 			//print_cmd_list(cmd_list);
 			// 4. SONUÇLARI GÖRMEK İÇİN YAZDIR
             // printf("--- EXPANDER SONRASI ---\n");
@@ -62,8 +63,8 @@ int	main(int argc, char	*argv[], char *envp[])
 			if(cmd_list != NULL)
 			{
 				executor(cmd_list, env_list);
+				free_cmd_list(&cmd_list);
 			}
-            free_token_list(&token_list);
 			//ayşe //kanka sen parse_token(token_list) den ksımı alcaksın print_cmd_list görmek içindi benim kısmı
 			//exec_command();
 		}
