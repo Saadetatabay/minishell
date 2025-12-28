@@ -9,6 +9,11 @@ t_cmd	*parse_token(t_token *token_list)
 
 	if (!token_list)
 		return (NULL);
+    if (token_list->type == PIPE)
+	{
+		printf("Minishell: syntax error near unexpected token '|'\n");
+        return (NULL);
+	}
     current_token = token_list;
     head = new_cmd_node();
     if (!head)
@@ -19,6 +24,12 @@ t_cmd	*parse_token(t_token *token_list)
         //eğer pipe gördüysek linked list ile bağlayacağız yeni bir kutu açıp oradaki komutları da koyuyorz
         if (current_token->type == PIPE)
         {
+			if (!token_list->next || token_list->next->type == PIPE)
+			{
+				printf("Minishell: syntax error near unexpected token '|'\n");
+				//FREECMDLİST GELMELİ 
+				return (NULL);
+			}
             new_cmd = new_cmd_node(); // pıpe sonrarsında yer alanları bağladım yani 
             if (!new_cmd)
                 return NULL;
