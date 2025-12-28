@@ -27,7 +27,7 @@ t_cmd	*parse_token(t_token *token_list)
 			if (!token_list->next || token_list->next->type == PIPE)
 			{
 				printf("Minishell: syntax error near unexpected token '|'\n");
-				//FREECMDLİST GELMELİ 
+				free_cmd_list(&head);
 				return (NULL);
 			}
             new_cmd = new_cmd_node(); // pıpe sonrarsında yer alanları bağladım yani 
@@ -47,7 +47,10 @@ t_cmd	*parse_token(t_token *token_list)
         else
         {
             if (!add_redirect(current_token, current))
+			{
+				free_cmd_list(&head);
                 return (NULL);
+			}
             current_token = current_token->next; // neext valuesı doyaadı biz onu hallettik zaten
         }
         current_token = current_token->next;
