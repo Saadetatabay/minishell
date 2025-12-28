@@ -1,0 +1,16 @@
+Makefile
+a.txt
+b.txt
+builtin
+deneme.txt
+env
+executor
+expander
+lexer
+libft
+main.c
+minishell
+minishell.h
+parser
+redirections
+utils.c

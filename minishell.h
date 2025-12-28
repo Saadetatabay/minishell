@@ -92,7 +92,8 @@ void print_cmd_list(t_cmd *head);
 char    **env_to_array(t_env *env);
 char    *find_path(char *cmd, t_env *env);
 void    free_arr(char **arr);
-void    execute_cmd(t_cmd *cmd, t_env *env);
+void	executor(t_cmd *cmd, t_env *env);
+//void    execute_cmd(t_cmd *cmd, t_env *env);
 char*   key_value(t_env *env);
 
 //built-in
