@@ -6,8 +6,10 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include "libft/libft.h"
 # include <ctype.h>
+# include <fcntl.h>
 
 //Token türlerini
 typedef enum e_token_type
@@ -85,6 +87,33 @@ char	**join_str_array(char *arr[], char *new_str);
 t_redir	*add_redirect(t_token *token, t_cmd *cmd);
 t_cmd	*parse_token(t_token *token_list);
 void print_cmd_list(t_cmd *head);
+
+//executor dosyalari
+char    **env_to_array(t_env *env);
+char    *find_path(char *cmd, t_env *env);
+void    free_arr(char **arr);
+void    execute_cmd(t_cmd *cmd, t_env *env);
+char*   key_value(t_env *env);
+
+//built-in
+int     ft_pwd(void);
+int     ft_env(t_env *env);
+int     ft_exit(void);
+void    exec_builtin(t_cmd *cmd, t_env *env);
+int     is_builtin(char *command, t_cmd *cmd);
+int     ft_export(t_cmd *cmd, t_env **env);
+int     ft_unset(t_env **env, t_cmd *cmd);
+ //unset ve exportun içindeki bazı fonksiyonları eklemedim
+void    add_or_update(t_env **env, char *key, char *value);
+int     ft_cd(t_cmd *cmd, t_env **env);
+int     check_flag(char *str);
+int     ft_echo(t_cmd *cmd);
+//redirections
+void    direct_and_close(int *fd);
+void     handle_utils(t_redir *tmp, int* fd);
+int     handle_redirections(t_cmd *cmd);
+int     heredoc_utils(t_redir *tmp);
+void    fill_heredoc(char *stop, int *fd);
 
 extern int  exit_status;
 

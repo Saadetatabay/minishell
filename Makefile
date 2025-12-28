@@ -8,6 +8,16 @@ SRC = main.c \
 	  parser/parser.c \
 	  parser/parser_utils.c \
 	  env/env.c \
+	  executor/get_path.c \
+	  executor/exec_utils.c \
+	  executor/executor.c \
+	  builtin/builtin1.c \
+	  builtin/builtin_utils.c \
+	  builtin/export.c \
+	  builtin/unset.c \
+	  builtin/cd.c \
+	  builtin/echo.c \
+	  redirections/redir.c \
 	  utils.c
 OBJ = $(SRC:.c=.o)
 
