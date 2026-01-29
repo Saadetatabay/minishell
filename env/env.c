@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/29 21:49:07 by satabay           #+#    #+#             */
+/*   Updated: 2026/01/29 21:59:20 by satabay          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env   *new_env_node(char *key, char *value)
+t_env	*new_env_node(char *key, char *value)
 {
 	t_env	*new;
 
-    new = malloc(sizeof(t_env));
+	new = malloc(sizeof(t_env));
 	if (!new)
-		return NULL;
+		return (NULL);
 	new->key = key;
 	new->value = value;
 	new->next = NULL;
@@ -16,6 +28,7 @@ t_env   *new_env_node(char *key, char *value)
 void	env_add_back(t_env **env_list, t_env *new)
 {
 	t_env	*temp;
+
 	if (!*env_list)
 	{
 		*env_list = new;
@@ -35,10 +48,15 @@ void	init_env(t_env **env_list, char **envp)
 	char	*value;
 	char	*key;
 
+	if (!envp || !*envp)
+	{
+		create_default_env(env_list);
+		return ;
+	}
 	i = 0;
 	while (envp[i])
 	{
-		find = ft_strchr(envp[i],'=');
+		find = ft_strchr(envp[i], '=');
 		if (find)
 		{
 			key = ft_substr(envp[i], 0, find - envp[i]);
@@ -48,6 +66,7 @@ void	init_env(t_env **env_list, char **envp)
 		}
 		i++;
 	}
+	increment_shell_level(*env_list);
 }
 
 char	*get_env_value(char *name, t_env *env_list)
@@ -61,5 +80,5 @@ char	*get_env_value(char *name, t_env *env_list)
 			return (temp->value);
 		temp = temp->next;
 	}
-	return NULL;
+	return (NULL);
 }

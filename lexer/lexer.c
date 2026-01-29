@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 21:03:37 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/29 21:22:04 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/29 21:27:54 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	handle_operator(t_token	**token_list, char *input, int i)
 int	handle_word(t_token **token_list, char *input, int i)
 {
 	int		start;
-	char	quato;
 	char	*content;
 
 	start = i;

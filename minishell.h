@@ -87,6 +87,9 @@ char	**join_str_array(char *arr[], char *new_str);
 t_redir	*add_redirect(t_token *token, t_cmd *cmd);
 t_cmd	*parse_token(t_token *token_list);
 void print_cmd_list(t_cmd *head);
+int ft_isspace(int c);
+static int	skip_quotes(char *input, int i);
+void	increment_shell_level(t_env *env_list);
 
 //executor dosyalari
 char    **env_to_array(t_env *env);

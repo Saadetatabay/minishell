@@ -70,5 +70,7 @@ int	main(int argc, char	*argv[], char *envp[])
 		}
 		free(input);
 	}
+	//free_env_list eklemek lazım
+	rl_clear_history();
 	return (0);
 }
