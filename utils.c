@@ -65,35 +65,3 @@ void print_cmd_list(t_cmd *head)
     }
     printf("----------------------\n");
 }
-
-char    *remove_quotes(char *str)
-{
-    char    *new;
-    int     i;
-    int     j;
-    int     single_quote;
-    int     double_quote;
-
-    if (!str)
-        return (NULL);
-    single_quote = 0;
-    double_quote = 0;
-    i = 0;
-    j = 0;
-    new = malloc(sizeof(char)*(ft_strlen(str) + 1));
-    while (str[i])
-    {
-        if (str[i] == '\'' && !double_quote)
-                single_quote = !single_quote;
-        else if (str[i] == '"' && !single_quote)
-                    double_quote = !double_quote;
-        else
-        {
-            new[j] = str[i];
-            j++;
-        }
-        i++;
-    }
-    new[j] = '\0';
-    return (new);
-}

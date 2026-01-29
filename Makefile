@@ -5,6 +5,7 @@ SRC = main.c \
       lexer/lexer.c \
 	  lexer/utils_token.c \
 	  expander/expander.c \
+	  expander/expander_utils.c \
 	  parser/parser.c \
 	  parser/parser_utils.c \
 	  env/env.c \
