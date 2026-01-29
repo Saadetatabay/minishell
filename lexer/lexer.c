@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 21:03:37 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/29 21:27:54 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/30 00:32:49 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ int	handle_word(t_token **token_list, char *input, int i)
 				return (-1);
 			}
 		}
-		else
-			i++;
+		i++;
 	}
 	content = ft_substr(input, start, i - start);
 	token_add_list(token_list, ft_new_token(content, WORD));

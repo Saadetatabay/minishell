@@ -9,7 +9,7 @@ SRC = main.c \
 	  parser/parser.c \
 	  parser/parser_utils.c \
 	  env/env.c \
-	  env/env_util.c
+	  env/env_utils.c \
 	  executor/get_path.c \
 	  executor/exec_utils.c \
 	  executor/executor.c \

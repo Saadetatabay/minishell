@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 21:02:35 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/29 21:16:58 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/30 00:16:58 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isspace(int c)
 	return (0);
 }
 
-static int	skip_quotes(char *input, int i)
+int	skip_quotes(char *input, int i)
 {
 	char	quote;
 

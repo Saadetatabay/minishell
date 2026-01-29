@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 21:58:04 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/29 21:58:06 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/30 00:18:12 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	increment_shell_level(t_env *env_list)
 	}
 }
 
-static void	create_default_env(t_env **env_list)
+void	create_default_env(t_env **env_list)
 {
 	char	*cwd;
 
