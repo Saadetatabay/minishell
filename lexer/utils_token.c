@@ -1,31 +1,33 @@
-# include "minishell.h"
-// TEST İÇİN: Tokenları ekrana basar
-void    print_tokens(t_token *token)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_token.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/29 21:02:35 by satabay           #+#    #+#             */
+/*   Updated: 2026/01/29 21:16:58 by satabay          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	ft_isspace(int c)
 {
-    int i = 0;
-    while (token)
-    {
-        printf("Token %d: [%s] (Type: %d)\n", i, token->value, token->type);
-        token = token->next;
-        i++;
-    }
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }
 
-// // TEMİZLİK İÇİN: Token listesini free'ler (Leak olmaması için şart)
-// void    free_token_list(t_token **token)
-// {
-//     t_token *curr;
-//     t_token *next;
+static int	skip_quotes(char *input, int i)
+{
+	char	quote;
 
-//     if (!token || !*token)
-//         return;
-//     curr = *token;
-//     while (curr)
-//     {
-//         next = curr->next;
-//         free(curr->value); // İçindeki stringi (content) free'le
-//         free(curr);        // Vagonun kendisini free'le
-//         curr = next;
-//     }
-//     *token = NULL;
-// }
+	quote = input[i];
+	i++;
+	while (input[i] && input[i] != quote)
+		i++;
+	if (!input[i])
+		return (-1);
+	return (i);
+}
