@@ -45,6 +45,7 @@ void	executor(t_cmd *cmd, t_env *env)
 	int		fd[2];
 	int		previous_fd = -1; //önceki borunun ucuc başta yok diye -1
 	pid_t	pid;
+	int		status;
 
 	if(cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd) == 1)
     {
@@ -109,5 +110,10 @@ void	executor(t_cmd *cmd, t_env *env)
 		}
 		cmd = cmd->next;
 	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exit_status = 128 + WTERMSIG(status); // Ctrl+C gibi sinyaller için
 	while(wait(NULL) != -1);
 }
