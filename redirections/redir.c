@@ -33,17 +33,17 @@ int    heredoc_utils(t_redir *tmp)
 
 void     handle_utils(t_redir *tmp, int* fd)
 {
-    if(tmp->type == REDIR_OUT)
+    if(tmp->type == REDIRECT_OUT)
     {
         *fd = open(tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         direct_and_close(fd);    
     }
-    else if (tmp->type == REDIR_APPEND)
+    else if (tmp->type == APPEND)
     {
         *fd = open(tmp->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
         direct_and_close(fd);
     }
-    else if (tmp->type == REDIR_IN)
+    else if (tmp->type == REDIRECT_IN)
     {
         *fd = open(tmp->file, O_RDONLY);
         if (*fd != -1)
@@ -52,7 +52,7 @@ void     handle_utils(t_redir *tmp, int* fd)
             close(*fd);
         }
     }
-    else if(tmp->type == REDIR_HEREDOC)
+    else if(tmp->type == HEREDOC)
         *fd = heredoc_utils(tmp);
 }
 

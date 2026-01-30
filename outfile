@@ -8,11 +8,9 @@ free
 lexer
 libft
 main.c
-main.o
 minishell
 minishell.h
 outfile
 parser
 redirections
 utils.c
-utils.o
