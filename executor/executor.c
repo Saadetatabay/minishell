@@ -47,8 +47,13 @@ void	executor(t_cmd *cmd, t_env *env)
 	pid_t	pid;
 	int		status;
 
-	if(cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd) == 1)
-    {
+	//if(cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd) == 1)
+    if (cmd->args && cmd->args[0] && !cmd->next && 
+        (ft_strncmp(cmd->args[0], "cd", 3) == 0 ||
+         ft_strncmp(cmd->args[0], "exit", 5) == 0 ||
+         ft_strncmp(cmd->args[0], "export", 7) == 0 ||
+         ft_strncmp(cmd->args[0], "unset", 6) == 0))
+	{
         exec_builtin(cmd, env);
         return;
     }
