@@ -99,6 +99,7 @@ int	redir_type_atama(int token_type);
 int word_handle(t_token *token, t_cmd *current, t_cmd **head);
 int handle_pipe(t_token *token, t_cmd **head, t_cmd **current);
 int process_token(t_token **token, t_cmd **current, t_cmd **head);
+char    *get_expansion_value(char *name, t_env *env_list);
 
 //executor dosyalari
 char    **env_to_array(t_env *env);
