@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 12:49:03 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/31 13:23:45 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/31 13:41:56 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	process_token(t_token **token, t_cmd **current, t_cmd **head)
 	else if ((*token)->type == WORD)
 		return (word_handle(*token, *current, head));
 	else
-		return (handle_redirection(token, *current, head));
+		return (redirection_handle(token, *current, head));
 }
 
 int	handle_pipe(t_token *token, t_cmd **head, t_cmd **current)
@@ -78,7 +78,7 @@ int	word_handle(t_token *token, t_cmd *current, t_cmd **head)
 	return (1);
 }
 
-int	handle_redirection(t_token **token, t_cmd *current, t_cmd **head)
+int	redirection_handle(t_token **token, t_cmd *current, t_cmd **head)
 {
 	if (!add_redirect(*token, current))
 	{
