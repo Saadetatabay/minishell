@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 22:16:10 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/29 22:28:03 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/31 13:37:59 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,16 @@ char	*remove_quotes(char *str)
 	}
 	new[j] = '\0';
 	return (new);
+}
+
+char	*get_expansion_value(char *name, t_env *env_list)
+{
+	char	*temp_val;
+
+	if (ft_strncmp(name, "?", 2) == 0)
+		return (ft_itoa(exit_status));
+	temp_val = get_env_value(name, env_list);
+	if (temp_val)
+		return (ft_strdup(temp_val));
+	return (ft_strdup(""));
 }

@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 23:59:43 by satabay           #+#    #+#             */
-/*   Updated: 2026/01/30 22:47:08 by satabay          ###   ########.fr       */
+/*   Updated: 2026/01/31 13:38:05 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,11 @@ char	*replace_string(char *old_str, int start, int len_name, char *new)
 	char	*suffix;
 	char	*temp;
 	char	*result;
-	int		suffix_start_index;
 	int		suffix_len;
 
 	prefix = ft_substr(old_str, 0, start);
-	suffix_start_index = start + 1 + len_name;
-	suffix_len = ft_strlen(old_str) - suffix_start_index;
-	suffix = ft_substr(old_str, suffix_start_index, suffix_len);
+	suffix_len = ft_strlen(old_str) - (start + 1 + len_name);
+	suffix = ft_substr(old_str, start + 1 + len_name, suffix_len);
 	temp = ft_strjoin(prefix, new);
 	result = ft_strjoin(temp, suffix);
 	free(prefix);
@@ -93,25 +91,17 @@ void	expand_process(t_token *token, int *i, t_env *env_list)
 {
 	char	*name;
 	char	*value;
-	char	*temp_value;
 	char	*new_str;
 
 	name = var_name(&token->value[*i + 1]);
-	if (!name)
+	if (!name || ft_strlen(name) == 0)
 	{
+		if (name)
+			free(name);
 		(*i)++;
 		return ;
 	}
-	if (strncmp(name, "?", 2) == 0)
-		value = ft_itoa(exit_status);
-	else
-	{
-		temp_value = get_env_value(name, env_list);
-		if (temp_value)
-			value = ft_strdup(temp_value);
-		else
-			value = ft_strdup("");
-	}
+	value = get_expansion_value(name, env_list);
 	new_str = replace_string(token->value, *i, ft_strlen(name), value);
 	free(token->value);
 	token->value = new_str;
