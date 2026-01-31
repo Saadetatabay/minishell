@@ -94,6 +94,11 @@ void	expand_process(t_token *token, int *i, t_env *env_list);
 void	create_default_env(t_env **env_list);
 t_env	*new_env_node(char *key, char *value);
 void	env_add_back(t_env **env_list, t_env *new);
+void	*syntax_error(char *s);
+int	redir_type_atama(int token_type);
+int word_handle(t_token *token, t_cmd *current, t_cmd **head);
+int handle_pipe(t_token *token, t_cmd **head, t_cmd **current);
+int process_token(t_token **token, t_cmd **current, t_cmd **head);
 
 //executor dosyalari
 char    **env_to_array(t_env *env);
