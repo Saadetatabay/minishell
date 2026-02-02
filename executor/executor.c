@@ -46,6 +46,8 @@ void	executor(t_cmd *cmd, t_env *env)
 	int		previous_fd = -1; //önceki borunun ucuc başta yok diye -1
 	pid_t	pid;
 	int		status;
+	int		saved_stdout;
+	int		saved_stdin;
 
 	//if(cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd) == 1)
     if (cmd->args && cmd->args[0] && !cmd->next && 
@@ -54,7 +56,21 @@ void	executor(t_cmd *cmd, t_env *env)
          ft_strncmp(cmd->args[0], "export", 7) == 0 ||
          ft_strncmp(cmd->args[0], "unset", 6) == 0))
 	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		if (handle_redirections(cmd) == 1)
+		{
+			dup2(saved_stdout, STDOUT_FILENO);
+			dup2(saved_stdin, STDIN_FILENO);
+			close(saved_stdout);
+			close(saved_stdin);
+			return;
+		}
         exec_builtin(cmd, env);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
         return;
     }
 	while (cmd != NULL)
@@ -64,6 +80,8 @@ void	executor(t_cmd *cmd, t_env *env)
 		pid = fork();
 		if (pid == 0) //childprocess
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			if (previous_fd != -1)
 			{
 				dup2(previous_fd,0);

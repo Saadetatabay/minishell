@@ -1,6 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+extern int g_sig_status;
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -10,6 +12,7 @@
 # include "libft/libft.h"
 # include <ctype.h>
 # include <fcntl.h>
+# include <signal.h>
 
 //Token türlerini
 typedef enum e_token_type
@@ -133,6 +136,10 @@ void    fill_heredoc(char *stop, int *fd);
 //free
 void    free_cmd_list(t_cmd **cmd);
 void    free_token_list(t_token **token);
+
+//signal
+void    handle_sigint(int sig);
+void    init_signals(void);
 
 extern int  exit_status;
 

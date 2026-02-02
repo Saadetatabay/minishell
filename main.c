@@ -1,6 +1,7 @@
 #include "minishell.h"
 
 int	exit_status = 0;
+int g_sig_status = 0;
 
 int	main(int argc, char	*argv[], char *envp[])
 {
@@ -20,6 +21,7 @@ int	main(int argc, char	*argv[], char *envp[])
     // print_env(env_list);
     // printf("-------------------\n");
 	//sonusuz shell döngüsü
+	init_signals();
 
 	while (1)
 	{
