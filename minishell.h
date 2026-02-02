@@ -116,7 +116,7 @@ char*   key_value(t_env *env);
 //built-in
 int     ft_pwd(void);
 int     ft_env(t_env *env);
-int     ft_exit(void);
+int     ft_exit(t_cmd *cmd);
 void    exec_builtin(t_cmd *cmd, t_env *env);
 int     is_builtin(char *command, t_cmd *cmd);
 int     ft_export(t_cmd *cmd, t_env **env);
@@ -142,5 +142,4 @@ void    handle_sigint(int sig);
 void    init_signals(void);
 
 extern int  exit_status;
-
 #endif

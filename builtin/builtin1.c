@@ -32,9 +32,17 @@ int ft_env(t_env *env)
     return (0);
 }
 
-int ft_exit(void)
+int ft_exit(t_cmd *cmd)
 {
+    int exit_code;
     write(1,"exit\n",5);
+    if (cmd->args[1]) // Eğer "exit 42" gibi bir argüman varsa
+    {
+        // Argüman sadece rakamlardan mı oluşuyor kontrolü eklenebilir (is_digit)
+        // Ama şimdilik temel mantığı kuralım:
+        exit_code = ft_atoi(cmd->args[1]);
+        exit(exit_code); // Bulduğumuz sayıyla çıkış yap
+    }
     exit(0);
     return (0);
 }
