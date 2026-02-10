@@ -110,6 +110,7 @@ char    **env_to_array(t_env *env);
 char    *find_path(char *cmd, t_env *env);
 void    free_arr(char **arr);
 void	executor(t_cmd *cmd, t_env *env);
+char	*check_access(char **arr, char *cmd);
 //void    execute_cmd(t_cmd *cmd, t_env *env);
 char*   key_value(t_env *env);
 
@@ -121,6 +122,7 @@ void    exec_builtin(t_cmd *cmd, t_env *env);
 int     is_builtin(char *command, t_cmd *cmd);
 int     ft_export(t_cmd *cmd, t_env **env);
 int     ft_unset(t_env **env, t_cmd *cmd);
+t_env	*create_env_node(char *key, char *value);
  //unset ve exportun içindeki bazı fonksiyonları eklemedim
 void    add_or_update(t_env **env, char *key, char *value);
 int     ft_cd(t_cmd *cmd, t_env **env);
