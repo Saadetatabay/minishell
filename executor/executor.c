@@ -40,8 +40,7 @@ static void	wait_children(pid_t last_pid)
 		exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		exit_status = 128 + WTERMSIG(status);
-	while (wait(NULL) != -1)
-		;
+	while (wait(NULL) != -1);
 }
 
 static int	is_parent_builtin(t_cmd *cmd)

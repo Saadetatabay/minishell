@@ -46,8 +46,7 @@ int	main(int argc, char *argv[], char *envp[])
 	env_list = NULL;
 	init_env(&env_list, envp);
 	init_signals();
-	while (read_and_process(env_list))
-		;
+	while (read_and_process(env_list));
 	rl_clear_history();
 	return (0);
 }
