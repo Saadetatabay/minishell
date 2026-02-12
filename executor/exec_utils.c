@@ -11,7 +11,7 @@ int count_env_vars(t_env *env)
     }
     return (count);
 }
-//key ve valuelar birlestirildi USER=satabay gibi
+
 char*   key_value(t_env *env)
 {
     char *temp;
@@ -23,7 +23,7 @@ char*   key_value(t_env *env)
     free(temp);
     return (key_and_value);
 }
-//execve() ye gondermek icin USER=satabay, USER=ayonal lari arraya ceviriyoruz
+
 char** env_to_array(t_env *env)
 {
     t_env *temp;

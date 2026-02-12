@@ -48,8 +48,8 @@ void	add_or_update(t_env **env, char *key, char *value)
 	node = create_env_node(key, value);
     if (!node)
         return;
-	if (!*env)
-		*env = node;
+    if (!*env)
+	    *env = node;
 	else
 	{
 		temp = *env;

@@ -1,5 +1,5 @@
 #include "minishell.h"
-//key de path var mı diye bakıyor varsa onun valuesini alıyor mesela usr/bin gibi
+
 char *path_value(t_env *env)
 {
     while (env != NULL)

@@ -51,6 +51,8 @@ void     handle_utils(t_redir *tmp, int* fd)
             dup2(*fd, 0);
             close(*fd);
         }
+        else
+            return;
     }
     else if(tmp->type == REDIR_HEREDOC)
         *fd = heredoc_utils(tmp);
