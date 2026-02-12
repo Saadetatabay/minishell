@@ -1,41 +1,14 @@
 #include "minishell.h"
 
-static void	handle_child_process(t_cmd *cmd, t_env *env, int prev_fd, int *fd)
+void	handle_child_process(t_cmd *cmd, t_env *env, int prev_fd, int *fd)
 {
-	char	**arr;
-	char	*path;
-
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (prev_fd != -1)
-		dup2(prev_fd, 0);
-	if (prev_fd != -1)
-		close(prev_fd);
-	if (cmd->next)
-		close(fd[0]);
-	if (cmd->next)
-		dup2(fd[1], 1);
-	if (cmd->next)
-		close(fd[1]);
+	setup_child_fds(cmd, prev_fd, fd);
 	if (handle_redirections(cmd) == 1)
 		exit(1);
-	if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd))
-		exec_builtin(cmd, env);
-	if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0], cmd))
-		exit(0);
-	if (!cmd->args || !cmd->args[0])
-		exit(0);
-	arr = env_to_array(env);
-	path = find_path(cmd->args[0], env);
-	if (!path)
-		write(2, "Command not found\n", 18);
-	if (!path)
-		exit(127);
-	execve(path, cmd->args, arr);
-	perror("execve");
-	exit(1);
+	execute_command(cmd, env);
 }
-
 static void	exec_parent_builtin(t_cmd *cmd, t_env *env)
 {
 	int	saved_stdout;

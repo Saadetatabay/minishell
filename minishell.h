@@ -111,8 +111,10 @@ char    *find_path(char *cmd, t_env *env);
 void    free_arr(char **arr);
 void	executor(t_cmd *cmd, t_env *env);
 char	*check_access(char **arr, char *cmd);
-//void    execute_cmd(t_cmd *cmd, t_env *env);
+void	handle_child_process(t_cmd *cmd, t_env *env, int prev_fd, int *fd);
 char*   key_value(t_env *env);
+void    setup_child_fds(t_cmd *cmd, int prev_fd, int *fd);
+void	execute_command(t_cmd *cmd, t_env *env);
 
 //built-in
 int     ft_pwd(void);
