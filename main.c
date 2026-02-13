@@ -26,6 +26,11 @@ static int	read_and_process(t_env *env_list)
 {
 	char	*input;
 
+	if (g_sig_status != 0)
+	{
+		g_exit_status = g_sig_status;
+		g_sig_status = 0;
+	}
 	input = readline("minishell$ ");
 	if (!input)
 	{

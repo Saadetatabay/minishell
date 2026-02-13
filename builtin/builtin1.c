@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+int is_numeric(char *str)
+{
+    int i;
+    
+    i = 0;
+    if (str[0] == '-' || str[0] == '+')
+        i++;
+    if (!str[i])
+        return (0);
+    while (str[i])
+    {
+        if (!ft_isdigit(str[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 int ft_pwd(void)
 {
     char loc[1024];
@@ -35,11 +53,19 @@ int ft_env(t_env *env)
 int ft_exit(t_cmd *cmd)
 {
     int exit_code;
+    
     write(1,"exit\n",5);
     if (cmd->args[1])
     {
+        if (!is_numeric(cmd->args[1]))
+        {
+            write(2, "minishell: exit: ", 17);
+            write(2, cmd->args[1], ft_strlen(cmd->args[1]));
+            write(2, ": numeric argument required\n", 28);
+            exit(255);
+        }
         exit_code = ft_atoi(cmd->args[1]);
-        exit(exit_code);
+        exit(exit_code % 256);
     }
     exit(0);
     return (0);

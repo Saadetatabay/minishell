@@ -65,7 +65,21 @@ int ft_export(t_cmd *cmd, t_env **env)
     char    *key;
     char    *value;
     char    *equal;
+    t_env   *temp;
 
+     if (cmd->args[1] == NULL)
+    {
+        temp = *env;
+        while (temp)
+        {
+            printf("declare -x %s", temp->key);
+            if (temp->value)
+                printf("=\"%s\"", temp->value);
+            printf("\n");
+            temp = temp->next;
+        }
+        return (0);
+    }
     i = 1;
     while(cmd->args[i] != NULL)
     {
