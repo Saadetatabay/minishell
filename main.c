@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exit_status = 0;
+int	g_exit_status = 0;
 int	g_sig_status = 0;
 
 static void	process_input(char *input, t_env *env_list)
