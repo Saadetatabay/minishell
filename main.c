@@ -3,6 +3,8 @@
 int	g_exit_status = 0;
 int	g_sig_status = 0;
 
+
+
 static void	process_input(char *input, t_env *env_list)
 {
 	t_token	*token_list;
@@ -22,6 +24,28 @@ static void	process_input(char *input, t_env *env_list)
 	}
 }
 
+// Yeni fonksiyon ekle (main'den önce)
+static void	cleanup(t_env **env_list)
+{
+	t_env	*current;
+	t_env	*next;
+
+	if (!env_list || !*env_list)
+		return;
+	current = *env_list;
+	while (current)
+	{
+		next = current->next;
+		if (current->key)
+			free(current->key);
+		if (current->value)
+			free(current->value);
+		free(current);
+		current = next;
+	}
+	*env_list = NULL;
+}
+
 static int	read_and_process(t_env *env_list)
 {
 	char	*input;
@@ -31,6 +55,7 @@ static int	read_and_process(t_env *env_list)
 		g_exit_status = g_sig_status;
 		g_sig_status = 0;
 	}
+
 	input = readline("minishell$ ");
 	if (!input)
 	{
@@ -51,7 +76,9 @@ int	main(int argc, char *argv[], char *envp[])
 	env_list = NULL;
 	init_env(&env_list, envp);
 	init_signals();
-	while (read_and_process(env_list));
+	while (read_and_process(env_list))
+		;
 	rl_clear_history();
+	cleanup(&env_list);
 	return (0);
 }
