@@ -22,8 +22,7 @@ SRC = main.c \
 	  redirections/redir.c \
 	  free/free_token_list.c \
 	  free/free_cmd_list.c \
-	  signals/signals.c \
-	  utils.c
+	  signals/signals.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT_PATH = ./libft
