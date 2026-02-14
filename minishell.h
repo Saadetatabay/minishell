@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: satabay <satabay@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 20:16:41 by satabay           #+#    #+#             */
-/*   Updated: 2026/02/13 20:16:47 by satabay          ###   ########.fr       */
+/*   Updated: 2026/02/14 12:27:07 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ t_token	*lexer(char	*input);
 t_token	*ft_new_token(char *content, t_token_type type);
 void	token_add_list(t_token **token_list, t_token *new_token);
 void	free_token_list(t_token **token);
-void	print_tokens(t_token *token);
 void	init_env(t_env **env_list, char **envp);
-void	print_env(t_env *env);
 char	*get_env_value(char *name, t_env *env_list);
 char	*remove_quotes(char *str);
 void	expander(t_token **token_list, t_env *env_list);
@@ -92,7 +90,6 @@ t_cmd	*new_cmd_node(void);
 char	**join_str_array(char *arr[], char *new_str);
 t_redir	*add_redirect(t_token *token, t_cmd *cmd);
 t_cmd	*parse_token(t_token *token_list);
-void	print_cmd_list(t_cmd *head);
 int		ft_isspace(int c);
 int		skip_quotes(char *input, int i);
 void	increment_shell_level(t_env *env_list);
