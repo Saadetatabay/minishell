@@ -9,6 +9,7 @@ void	handle_child_process(t_cmd *cmd, t_env *env, int prev_fd, int *fd)
 		exit(1);
 	execute_command(cmd, env);
 }
+
 static void	exec_parent_builtin(t_cmd *cmd, t_env *env)
 {
 	int	saved_stdout;
@@ -40,7 +41,9 @@ static void	wait_children(pid_t last_pid)
 		g_exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		g_exit_status = 128 + WTERMSIG(status);
-	while (wait(NULL) != -1);
+	while (wait(NULL) != -1)
+	{
+	}
 }
 
 static int	is_parent_builtin(t_cmd *cmd)

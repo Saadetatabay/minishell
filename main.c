@@ -3,8 +3,6 @@
 int	g_exit_status = 0;
 int	g_sig_status = 0;
 
-
-
 static void	process_input(char *input, t_env *env_list)
 {
 	t_token	*token_list;
@@ -24,14 +22,13 @@ static void	process_input(char *input, t_env *env_list)
 	}
 }
 
-// Yeni fonksiyon ekle (main'den önce)
 static void	cleanup(t_env **env_list)
 {
 	t_env	*current;
 	t_env	*next;
 
 	if (!env_list || !*env_list)
-		return;
+		return ;
 	current = *env_list;
 	while (current)
 	{
@@ -55,7 +52,6 @@ static int	read_and_process(t_env *env_list)
 		g_exit_status = g_sig_status;
 		g_sig_status = 0;
 	}
-
 	input = readline("minishell$ ");
 	if (!input)
 	{

@@ -1,26 +1,27 @@
 #include "minishell.h"
 
-char *path_value(t_env *env)
+char	*path_value(t_env *env)
 {
-    while (env != NULL)
-    {
-        if (ft_strncmp(env->key, "PATH", 5) == 0)
-            return (env->value);
-        env = env->next;
-    }
-    return (NULL);
+	while (env != NULL)
+	{
+		if (ft_strncmp(env->key, "PATH", 5) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
-void free_arr(char **arr)
-{
-    int i;
 
-    i = 0;
-    while(arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
+void	free_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
 
 char	*check_access(char **arr, char *cmd)

@@ -1,53 +1,55 @@
 #include "minishell.h"
 
-int count_env_vars(t_env *env)
+int	count_env_vars(t_env *env)
 {
-    int count;
-    count = 0;
-    while(env != NULL)
-    {
-        count++;
-        env = env->next;
-    }
-    return (count);
+	int	count;
+
+	count = 0;
+	while (env != NULL)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
 }
 
-char*   key_value(t_env *env)
+char	*key_value(t_env *env)
 {
-    char *temp;
-    char *key_and_value;
-    temp = ft_strjoin(env->key, "=");
-    if(!temp)
-        return(NULL);
-    key_and_value = ft_strjoin(temp, env->value);
-    free(temp);
-    return (key_and_value);
+	char	*temp;
+	char	*key_and_value;
+
+	temp = ft_strjoin(env->key, "=");
+	if (!temp)
+		return (NULL);
+	key_and_value = ft_strjoin(temp, env->value);
+	free(temp);
+	return (key_and_value);
 }
 
-char** env_to_array(t_env *env)
+char	**env_to_array(t_env *env)
 {
-    t_env *temp;
-    int count;
-    char **arr;
-    int i;
+	t_env		*temp;
+	int			count;
+	char		**arr;
+	int			i;
 
-    i = 0;
-    temp = env;
-    count = count_env_vars(temp);
-    arr = (char **)malloc(sizeof(char *) * (count + 1));
-    if(!arr)
-        return (NULL);
-    while(temp != NULL)
-    {
-        arr[i] = key_value(temp);
-        i++;
-        temp = temp->next;
-    }
-    arr[i] = NULL;
-    return (arr);
+	i = 0;
+	temp = env;
+	count = count_env_vars(temp);
+	arr = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!arr)
+		return (NULL);
+	while (temp != NULL)
+	{
+		arr[i] = key_value(temp);
+		i++;
+		temp = temp->next;
+	}
+	arr[i] = NULL;
+	return (arr);
 }
 
-void setup_child_fds(t_cmd *cmd, int prev_fd, int *fd)
+void	setup_child_fds(t_cmd *cmd, int prev_fd, int *fd)
 {
 	if (prev_fd != -1)
 	{
