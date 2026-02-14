@@ -68,7 +68,15 @@ void	execute_command(t_cmd *cmd, t_env *env)
 {
 	char	**arr;
 	char	*path;
+	char buffer[1024];
+	ssize_t n;
 
+	if (!cmd->args || !cmd->args[0])
+    {
+        while ((n = read(0, buffer, sizeof(buffer))) > 0)
+            write(1, buffer, n);
+        exit(0);
+	}
 	if (!cmd->args || !cmd->args[0])
 		exit(0);
 	if (is_builtin(cmd->args[0], cmd))

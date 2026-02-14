@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <stdio.h>
 
 void	direct_and_close(int *fd)
 {
@@ -10,25 +9,26 @@ void	direct_and_close(int *fd)
 	}
 }
 
-int	heredoc_utils(t_redir *tmp)
+int heredoc_utils(t_redir *tmp)
 {
-	int	fd;
-
-	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		return (-1);
-	fill_heredoc(tmp->file, &fd);
-	close(fd);
-	fd = open(".heredoc_tmp", O_RDONLY);
-	if (fd == -1)
-	{
-		unlink(".heredoc_tmp");
-		return (-1);
-	}
-	dup2(fd, 0);
-	close(fd);
-	unlink(".heredoc_tmp");
-	return (fd);
+    int fd;
+    
+    fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1)
+        return (-1);
+    fill_heredoc(tmp->file, &fd);
+    close(fd);
+    
+    fd = open(".heredoc_tmp", O_RDONLY);
+    if (fd == -1)
+    {
+        unlink(".heredoc_tmp");
+        return (-1);
+    }
+    dup2(fd, 0);
+    close(fd);
+    unlink(".heredoc_tmp");
+    return (0);
 }
 
 void	handle_utils(t_redir *tmp, int *fd)
@@ -57,6 +57,7 @@ void	handle_utils(t_redir *tmp, int *fd)
 	else if (tmp->type == REDIR_HEREDOC)
 		*fd = heredoc_utils(tmp);
 }
+
 
 void	fill_heredoc(char *stop, int *fd)
 {
