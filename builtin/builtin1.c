@@ -44,24 +44,24 @@ int	ft_pwd(void)
 	return (1);
 }
 
-int	ft_env(t_env *env)
+int ft_env(t_env *env)
 {
-	t_env	*temp;
-	char	*t;
-
-	temp = env;
-	while (temp != NULL)
-	{
-		if (temp->value != NULL)
-		{
-			t = key_value(temp);
-			ft_putstr_fd(t, 1);
-			write (1, "\n", 1);
-			free(t);
-		}
-		temp = temp->next;
-	}
-	return (0);
+    t_env *temp;
+    char *t;
+    
+    temp = env;
+    while(temp != NULL)
+    {
+        if(temp->value != NULL && temp->value[0] != '\0')
+        {
+            t = key_value(temp);
+            ft_putstr_fd(t, 1);
+            write(1,"\n",1);
+            free(t);
+        }
+        temp = temp->next;
+    }
+    return (0);
 }
 
 int	ft_exit(t_cmd *cmd)
