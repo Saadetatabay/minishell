@@ -100,8 +100,14 @@ void	execute_command(t_cmd *cmd, t_env *env)
 	path = find_path(cmd->args[0], env);
 	if (!path)
 	{
-		write(2, "Command not found\n", 18);
-		exit(127);
+    	if (cmd->args[0][0] == '/')
+    	{
+        	execve(cmd->args[0], cmd->args, arr);
+        	perror("execve");
+        	exit(1);
+    	}
+    	write(2, "Command not found\n", 18);
+    	exit(127);
 	}
 	execve(path, cmd->args, arr);
 	perror("execve");
