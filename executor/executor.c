@@ -17,6 +17,10 @@ void	handle_child_process(t_cmd *cmd, t_env *env, int prev_fd, int *fd)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	setup_child_fds(cmd, prev_fd, fd);
+	if (cmd->next)
+		close(fd[0]);
+	if (prev_fd != -1)
+		close(prev_fd);
 	if (handle_redirections(cmd) == 1)
 		exit(1);
 	execute_command(cmd, env);
@@ -47,14 +51,17 @@ static void	exec_parent_builtin(t_cmd *cmd, t_env *env)
 static void	wait_children(pid_t last_pid)
 {
 	int	status;
+	pid_t	pid;
 
-	waitpid(last_pid, &status, 0);
-	if (WIFEXITED(status))
-		g_exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_exit_status = 128 + WTERMSIG(status);
-	while (wait(NULL) != -1)
+	while ((pid = wait(&status)) > 0)
 	{
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+				g_exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_exit_status = 128 + WTERMSIG(status);
+		}
 	}
 }
 
