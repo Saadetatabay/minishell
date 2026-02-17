@@ -12,37 +12,26 @@
 
 #include "minishell.h"
 
-int count_env_vars(t_env *env)
+char	*key_value(t_env *env)
 {
-  int count;
+	char	*temp;
+	char	*key_and_value;
 
-  count = 0;
-  while (env != NULL) {
-    count++;
-    env = env->next;
-  }
-  return (count);
+	temp = ft_strjoin(env->key, "=");
+	if (!temp)
+		return (NULL);
+	key_and_value = ft_strjoin(temp, env->value);
+	free(temp);
+	return (key_and_value);
 }
 
-char *key_value(t_env *env) {
-  char *temp;
-  char *key_and_value;
-
-  temp = ft_strjoin(env->key, "=");
-  if (!temp)
-    return (NULL);
-  key_and_value = ft_strjoin(temp, env->value);
-  free(temp);
-  return (key_and_value);
-}
-
-char **env_to_array(t_env *env)
+char	**env_to_array(t_env *env)
 {
 	t_env	*temp;
-	int	count;
+	int		count;
 	char	**arr;
-	int	i;
-	
+	int		i;
+
 	i = 0;
 	temp = env;
 	count = count_env_vars(temp);
@@ -74,7 +63,24 @@ void	setup_child_fds(t_cmd *cmd, int prev_fd, int *fd)
 	}
 }
 
-void execute_command(t_cmd *cmd, t_env *env)
+static void	cmd_not_found(t_cmd *cmd, t_env *env, char **arr)
+{
+	if (cmd->args[0][0] == '/')
+	{
+		execve(cmd->args[0], cmd->args, arr);
+		perror("execve");
+		exit(1);
+	}
+	write(2, "minishell: ", 11);
+	write(2, cmd->args[0], ft_strlen(cmd->args[0]));
+	if (!get_env_value("PATH", env))
+		write(2, ": No such file or directory\n", 28);
+	else
+		write(2, ": command not found\n", 20);
+	exit(127);
+}
+
+void	execute_command(t_cmd *cmd, t_env *env)
 {
 	char	**arr;
 	char	*path;
@@ -89,21 +95,7 @@ void execute_command(t_cmd *cmd, t_env *env)
 	arr = env_to_array(env);
 	path = find_path(cmd->args[0], env);
 	if (!path)
-	{
-		if (cmd->args[0][0] == '/')
-		{
-			execve(cmd->args[0], cmd->args, arr);
-			perror("execve");
-			exit(1);
-		}
-		write(2, "minishell: ", 11);
-		write(2, cmd->args[0], ft_strlen(cmd->args[0]));
-		if (!get_env_value("PATH", env))
-			write(2, ": No such file or directory\n", 28);
-		else
-			write(2, ": command not found\n", 20);
-		exit(127);
-	}
+		cmd_not_found(cmd, env, arr);
 	execve(path, cmd->args, arr);
 	perror("execve");
 	exit(1);

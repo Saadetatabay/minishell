@@ -80,3 +80,14 @@ char	*find_path(char *cmd, t_env *env)
 	free_arr(arr);
 	return (res);
 }
+
+int count_env_vars(t_env *env) {
+  int count;
+
+  count = 0;
+  while (env != NULL) {
+    count++;
+    env = env->next;
+  }
+  return (count);
+}
