@@ -12,6 +12,32 @@
 
 #include "minishell.h"
 
+static char	*get_cd_path(t_cmd *cmd, t_env *env)
+{
+	char	*path;
+
+	if (cmd->args[1] == NULL)
+	{
+		path = get_env_value("HOME", env);
+		if (path == NULL)
+			write(2, "minishell: cd: HOME not set\n", 28);
+		return (path);
+	}
+	if (ft_strncmp(cmd->args[1], "-", 2) == 0)
+	{
+		path = get_env_value("OLDPWD", env);
+		if (path == NULL)
+			write(2, "minishell: cd: OLDPWD not set\n", 30);
+		else
+		{
+			ft_putstr_fd(path, 1);
+			write(1, "\n", 1);
+		}
+		return (path);
+	}
+	return (cmd->args[1]);
+}
+
 int	ft_cd(t_cmd *cmd, t_env **env)
 {
 	char	*path;
@@ -23,28 +49,9 @@ int	ft_cd(t_cmd *cmd, t_env **env)
 		write(2, "minishell: cd: getcwd error\n", 28);
 		return (1);
 	}
-	if (cmd->args[1] == NULL)
-	{
-		path = get_env_value("HOME", *env);
-		if (path == NULL)
-		{
-			write(2, "minishell: cd: HOME not set\n", 28);
-			return (1);
-		}
-	}
-	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
-	{
-		path = get_env_value("OLDPWD", *env);
-		if (path == NULL)
-		{
-			write(2, "minishell: cd: OLDPWD not set\n", 30);
-			return (1);
-		}
-		ft_putstr_fd(path, 1);
-		write(1, "\n", 1);
-	}
-	else
-		path = cmd->args[1];
+	path = get_cd_path(cmd, *env);
+	if (!path)
+		return (1);
 	if (chdir(path) == -1)
 	{
 		write(2, "minishell: cd: No such file or directory\n", 42);
