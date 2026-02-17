@@ -6,7 +6,7 @@
 /*   By: satabay <satabay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 20:16:41 by satabay           #+#    #+#             */
-/*   Updated: 2026/02/17 20:24:31 by satabay          ###   ########.fr       */
+/*   Updated: 2026/02/17 20:27:37 by satabay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	init_signals(void);
 int		count_env_vars(t_env *env);
 int		is_valid_identifier(char *key);
 int		export_error(char *arg);
+t_env	*look_for(t_env *env, char *key);
 extern int	g_sig_status;
 extern int	g_exit_status;
 #endif
