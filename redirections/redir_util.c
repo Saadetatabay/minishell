@@ -3,6 +3,7 @@
 int	setup_tty(int *saved_stdin)
 {
 	int	tty_fd;
+
 	*saved_stdin = dup(STDIN_FILENO);
 	tty_fd = open("/dev/tty", O_RDONLY);
 	if (tty_fd != -1)
