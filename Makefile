@@ -20,6 +20,7 @@ SRC = main.c \
 	  builtin/cd.c \
 	  builtin/echo.c \
 	  redirections/redir.c \
+	  redirections/redir_util.c \
 	  free/free_token_list.c \
 	  free/free_cmd_list.c \
 	  signals/signals.c

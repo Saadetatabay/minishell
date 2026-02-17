@@ -129,6 +129,8 @@ void free_cmd_list(t_cmd **cmd);
 void free_token_list(t_token **token);
 void handle_sigint(int sig);
 void init_signals(void);
+int	setup_tty(int *saved_stdin);
+void	export_with_value(char *arg, t_env **env, char *equal);
 extern int g_sig_status;
 extern int g_exit_status;
 #endif

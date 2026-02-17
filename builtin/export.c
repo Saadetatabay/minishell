@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-static int  is_valid_identifier(char *key)
+static int	is_valid_identifier(char *key)
 {
 	int	i;
 
- 	if (!key || !key[0])
+	if (!key || !key[0])
 		return (0);
- 	if (!ft_isalpha(key[0]) && key[0] != '_')
-   		return (0);
+	if (!ft_isalpha(key[0]) && key[0] != '_')
+		return (0);
 	i = 0;
 	while (key[i])
 	{
@@ -50,41 +50,24 @@ static int	export_error(char *arg)
 	return (1);
 }
 
-static void export_arg(char *arg, t_env **env)
+static void	export_arg(char *arg, t_env **env)
 {
-  char	*key;
-  char	*value;
-  char	*equal;
+	char	*key;
+	char	*equal;
 
-  equal = ft_strchr(arg, '=');
-  if (equal != NULL)
-  {
-	  key = ft_substr(arg, 0, equal - arg);
-	  value = ft_strdup(equal + 1);
-	  if (!is_valid_identifier(key))
-	  {
-		  export_error(arg);
-		  free(key);
-		  free(value);
-		  return;
-	  }
-	  add_or_update(env, key, value);
-	  free(value);
-	  free(key);
-  }
-  else 
-  {
-	  key = ft_strdup(arg);
-	  if (!is_valid_identifier(key))
-	  {
-		  export_error(arg);
-		  free(key);
-		  return;
-	  }
-	  if (!look_for(*env, key))
-		  add_or_update(env, key, "");
-	  free(key);
-  }
+	equal = ft_strchr(arg, '=');
+	if (equal != NULL)
+		return (export_with_value(arg, env, equal));
+	key = ft_strdup(arg);
+	if (!is_valid_identifier(key))
+	{
+		export_error(arg);
+		free(key);
+		return ;
+	}
+	if (!look_for(*env, key))
+		add_or_update(env, key, "");
+	free(key);
 }
 
 int	ft_export(t_cmd *cmd, t_env **env)
