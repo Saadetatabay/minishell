@@ -131,6 +131,9 @@ void handle_sigint(int sig);
 void init_signals(void);
 int	setup_tty(int *saved_stdin);
 void	export_with_value(char *arg, t_env **env, char *equal);
+int	count_env_vars(t_env *env);
+int	is_valid_identifier(char *key);
+int	export_error(char *arg);
 extern int g_sig_status;
 extern int g_exit_status;
 #endif

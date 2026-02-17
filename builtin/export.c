@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	is_valid_identifier(char *key)
+int	is_valid_identifier(char *key)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static void	print_export(t_env *env)
 	}
 }
 
-static int	export_error(char *arg)
+int	export_error(char *arg)
 {
 	write(2, "minishell: export: `", 20);
 	write(2, arg, ft_strlen(arg));
