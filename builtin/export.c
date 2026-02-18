@@ -36,7 +36,7 @@ static void	print_export(t_env *env)
 	{
 		printf("declare -x %s", env->key);
 		if (env->value && env->value[0])
-			printf("=\"%s\"", env->value);
+			printf("=%s", env->value);
 		printf("\n");
 		env = env->next;
 	}
